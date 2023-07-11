@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>옷 추천</title>
+        <style>
+            #form_input {position:absolute; left:200px}
+            #form_recommend {position:absolute; right:400px}
+        </style>
+    </head>
+    <body>
+        <center>
+            <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
+            <hr>
+            <p> <a href="main.html"> 로그아웃 </a> </p>
+        </center>
+        
+        <br><br>
+        <div id="form_input">
+            <label for="date" id="form_input">
+                날짜를 선택하세요: <br>
+                <input type="date" max="2100-12-31" min="2000-01-01" value="2023-07-01">
+                <p>
+                상의: 
+                <form> 
+                    <select> 
+                        <option> 반팔티셔츠 </option>
+                        <option> 니트 </option>
+                        <option> 긴팔티셔츠 </option>
+                        <option> 맨투맨 </option>
+                        <option> 후드티 </option>
+                        <option> etc(나중에수정) </option>
+                    </select> 
+                </form>
+                </p>
+                <p>
+                하의: 
+                <form> 
+                    <select> 
+                        <option> 반바지 </option>
+                        <option> 슬랙스 </option>
+                        <option> 긴바지 </option>
+                        <option> etc(나중에수정) </option>
+                    </select> 
+                </form>
+                </p>
+                <br>
+                <p>
+                    <input type="submit" value="submit">
+                </p>
+            </label>
+        </div>
+
+        <div id="form_recommend">
+            <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
+            <br><br>
+            <p> <strong> 오늘의 추천 </strong> <br><br>
+                상의: 추천 값 받아오기 <br>
+                하의: 추천 값 받아오기 <br>
+            </p>
+        </div>
+    </body>
+</html>
