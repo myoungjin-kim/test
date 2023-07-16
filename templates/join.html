@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title> 회원가입 </title>
+    </head>
+    <body>
+        <section>
+            <center>
+{#                signup 으로 바꾸면 좋을듯 #}
+                <h2> JOIN </h2> <br>
+                <form>
+                    <p>
+{#                        {% csrf_token %}#}
+                        <input type="text" name="text" placeholder="ID">
+                    </p>
+                    <p>
+                        <input type="password" name="pw" placeholder="password">
+                    </p>
+{#                    비밀번호를 한번 더  확인 하는 폼이 있으면 좋을거 같음#}
+                    <input type="submit" value="join">
+                </form>
+            </center>
+        </section>
+    </body>
+</html>

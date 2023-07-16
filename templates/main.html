@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>옷 추천</title>
+        <style>
+            #form_input {position:absolute; left:200px}
+            #form_recommend {position:absolute; right:400px}
+        </style>
+    </head>
+    <body>
+        <center>
+            <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
+            <hr>
+            <p> <a href="index.html"> 로그아웃 </a> </p>
+{#            여기 바꾸기 #}
+        </center>
+        
+        <br><br>
+        <div id="form_input">
+{#           위치 설정 , 주활동(실내 실외),이동수단(자동차 대중교통 등등) 선택할 수 있는 방식으로 하면 좋을듯#}
+            <label for="date" id="form_input">
+                날짜를 선택하세요: <br>
+{#                기본적으로 현재날짜를 출력해주는 방식으로 #}
+                <input type="date" max="2100-12-31" min="2000-01-01" value="2023-07-01">
+                <p>
+                상의: 
+                <form action="#">
+{#                404error방지#}
+                    <select>
+{#                        기본적으로 선택되는 애를 추가 해주면 좋을듯? 상의 하의#}
+                        <option> 반팔티셔츠 </option>
+                        <option value="상의" selected> 상의 </option>
+                        <option > 긴팔티셔츠 </option>
+                        <option> 맨투맨 </option>
+                        <option> 후드티 </option>
+                        <option> etc(나중에수정) </option>
+                    </select> 
+                </form>
+                </p>
+                <p>
+                하의: 
+                <form> 
+                    <select>
+                        {#                        기본적으로 선택되는 애를 추가 해주면 좋을듯? 상의 하의#}
+                        <option value="하의" selected> 하의 </option>
+                        <option> 반바지 </option>
+                        <option> 슬랙스 </option>
+                        <option> 긴바지 </option>
+                        <option> etc(나중에수정) </option>
+                    </select> 
+                </form>
+                </p>
+                <br>
+                <p>
+                    <input type="submit" value="submit">
+                </p>
+            </label>
+        </div>
+
+        <div id="form_recommend">
+            <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
+            <br><br>
+            <p> <strong> 오늘의 추천 </strong> <br><br>
+                상의: 추천 값 받아오기 <br>
+                하의: 추천 값 받아오기 <br>
+            </p>
+        </div>
+    </body>
+</html>
