@@ -61,7 +61,7 @@ def evaluate_ensemble_model(model, features, labels, enc, k):
     print('Decoded Predictions:', decoded_predictions)
 
 # 테스트 데이터 로드
-test_file = 'demo/ai/test_dataset_1.txt'
+test_file = 'ai/test_dataset_1.txt'
 test_features, test_label1s, test_label2s, label1_enc, label2_enc = load_test_data(test_file)
 
 # 첫 번째 라벨에 대한 앙상블 모델 빌드 및 평가
@@ -71,4 +71,3 @@ evaluate_ensemble_model(ensemble_model1, test_features, test_label1s, label1_enc
 # 두 번째 라벨에 대한 앙상블 모델 빌드 및 평가
 ensemble_model2 = build_voting_ensemble(test_features, test_label2s)
 evaluate_ensemble_model(ensemble_model2, test_features, test_label2s, label2_enc, k=2)
-
