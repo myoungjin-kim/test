@@ -8,11 +8,6 @@ def build_svm(features, labels):
         'C': [1.0, 10.0, 100.0],
         'kernel': ['linear', 'rbf']
     }
-
-    # GridSearchCV를 사용하여 최적의 하이퍼파라미터 탐색
-    # 최소 클래스 샘플 수를 교차 검증 폴드 수로 사용
-    min_samples_per_class = min(np.bincount(labels))
-    cv = min(5, min_samples_per_class)
     
     # GridSearchCV를 사용하여 최적의 하이퍼파라미터 탐색
     model = GridSearchCV(SVC(), param_grid, cv=2)

@@ -9,11 +9,6 @@ def build_gradient_boosting(features, labels):
         'n_estimators': [50, 100, 200],
         'max_depth': [3, 5, 7]
     }
-
-    # GridSearchCV를 사용하여 최적의 하이퍼파라미터 탐색
-    # 최소 클래스 샘플 수를 교차 검증 폴드 수로 사용
-    min_samples_per_class = min(np.bincount(labels))
-    cv = min(5, min_samples_per_class)
     
     # GridSearchCV를 사용하여 최적의 하이퍼파라미터 탐색
     model = GridSearchCV(GradientBoostingClassifier(), param_grid, cv=2)
