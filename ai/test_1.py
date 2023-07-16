@@ -16,11 +16,6 @@ from sklearn.model_selection import cross_val_score
 from voting_emsemble import build_voting_ensemble
 from data_process import data_encoder, data_decoder
 
-def calculate_error_rate(y_true, y_pred):
-    error_count = sum(1 for true, pred in zip(y_true, y_pred) if true != pred)
-    error_rate = error_count / len(y_true)
-    return error_rate
-
 def load_test_data(file_path):
     features = []
     label1s = []
