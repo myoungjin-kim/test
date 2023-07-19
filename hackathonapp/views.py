@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import UserCreateForm, SingUpForm,UserForm
 from django.contrib.auth import views as auth_views
+from .models import GC
 # Create your views here.
 def home(request):
     return  render(request,'index.html')
@@ -13,6 +14,20 @@ def login(request):
     # 로그인 하고 나서 main페이지로 넘어가기
     return  render(request,'login.html')
 def main(request):
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        top = request.POST.get('top')
+        bottom = request.POST.get('bottom')
+        vehicle = request.POST.get('vehicle')
+        inout = request.POST.get('inout')
+        ##??
+        gc_obj = GC.objects.create(date=date, top=top, bottom=bottom, vehicle=vehicle, inout=inout)
+
+        success = True
+        return render(request, 'main.html', {'success':success})
+    #로그인하면 이 페이지로 이동
+
+
     return  render(request,'main.html')
 
 

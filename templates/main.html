@@ -1,68 +1,106 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>옷 추천</title>
-        <style>
-            #form_input {position:absolute; left:200px}
-            #form_recommend {position:absolute; right:400px}
-        </style>
-    </head>
-    <body>
-        <center>
-            <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
-            <hr>
-            <p> <a href="index.html"> 로그아웃 </a> </p>
-{#            여기 바꾸기 #}
-        </center>
-        
-        <br><br>
-        <div id="form_input">
-{#           위치 설정 , 주활동(실내 실외),이동수단(자동차 대중교통 등등) 선택할 수 있는 방식으로 하면 좋을듯#}
-            <label for="date" id="form_input">
+<head>
+    <title>옷 추천</title>
+    <style>
+        #form {width:100%;}
+        #form_input {position:absolute; left:400px}
+        #form_recommend {position:absolute; right:400px}
+    </style>
+    <script>
+        function validateForm() {
+            var dateField = document.getElementById('date');
+            var topField = document.getElementById('c_top');
+            var bottomField = document.getElementById('c_bottom');
+            var vehicleField = document.getElementById('vehicle');
+            var inoutField = document.getElementById('inout');
+
+            if (dateField.value == '' || topField.value == '' || bottomField.value == '' || vehicleField.value == '' || inoutField.value == '') {
+                alert('모든 항목을 선택해주세요');
+                return false;   // 폼 제출 방지
+            }
+        }
+    </script>
+</head>
+<body>
+<center>
+    <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
+    <hr>
+{#    <p> <a href="index.html"> 로그아웃 </a> </p>#}
+{#    <p> <a href="/list"> 지금까지의 목록 </a> </p>#}
+</center>
+
+<br><br>
+<div id="form">
+    <div id="form_input">
+        <label>
+            <form method="POST" id="board_clothes" action="{% url 'main' %}" onsubmit="return validateForm();">
+                {% csrf_token %}
                 날짜를 선택하세요: <br>
-{#                기본적으로 현재날짜를 출력해주는 방식으로 #}
-                <input type="date" max="2100-12-31" min="2000-01-01" value="2023-07-01">
+                <input type="date" name="date" id="date">
+                <script>
+                    document.getElementById('date').value = new Date().toISOString().substring(0,10);
+                </script>
                 <p>
-                상의: 
-                <form action="#">
-{#                404error방지#}
-                    <select>
-{#                        기본적으로 선택되는 애를 추가 해주면 좋을듯? 상의 하의#}
-                        <option> 반팔티셔츠 </option>
-                        <option value="상의" selected> 상의 </option>
-                        <option > 긴팔티셔츠 </option>
-                        <option> 맨투맨 </option>
-                        <option> 후드티 </option>
-                        <option> etc(나중에수정) </option>
-                    </select> 
-                </form>
+                    상의:
+                    <select name="top" id="c_top">
+                        <option value="">상의 선택</option>
+                        <option value="short_T">반팔티셔츠</option>
+                        <option value="knit">니트</option>
+                        <option value="long_T">긴팔티셔츠</option>
+                        <option value="MTM">맨투맨</option>
+                        <option value="hood">후드티</option>
+                        <option value="etc_T">etc(나중에수정)</option>
+                    </select>
                 </p>
                 <p>
-                하의: 
-                <form> 
-                    <select>
-                        {#                        기본적으로 선택되는 애를 추가 해주면 좋을듯? 상의 하의#}
-                        <option value="하의" selected> 하의 </option>
-                        <option> 반바지 </option>
-                        <option> 슬랙스 </option>
-                        <option> 긴바지 </option>
-                        <option> etc(나중에수정) </option>
-                    </select> 
-                </form>
+                    하의:
+                    <select name="bottom" id="c_bottom">
+                        <option value="">하의 선택</option>
+                        <option value="short_P">반바지</option>
+                        <option value="slacks">슬랙스</option>
+                        <option value="long_P">긴바지</option>
+                        <option value="etc_B">etc(나중에수정)</option>
+                    </select>
+                </p>
+                <p>
+                    교통수단:
+                    <select name="vehicle" id="vehicle">
+                        <option value="">교통수단 선택</option>
+                        <option value="0"> 도보 </option>
+                        <option value="1"> 버스/지하철 </option>
+                        <option value="2"> 자가용 </option>
+                    </select>
+                </p>
+                <p>
+                    활동범위:
+                    <select name="inout" id="inout">
+                        <option value="">활동범위 선택</option>
+                        <option value="0"> 실내 </option>
+                        <option value="1"> 실외 </option>
+                    </select>
                 </p>
                 <br>
                 <p>
                     <input type="submit" value="submit">
                 </p>
-            </label>
-        </div>
+            </form>
+        </label>
+        {% if success %}
+            <script>
+                alert("입력 성공!");
+            </script>
+        {% endif %}
+    </div>
 
-        <div id="form_recommend">
-            <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
-            <br><br>
-            <p> <strong> 오늘의 추천 </strong> <br><br>
-                상의: 추천 값 받아오기 <br>
-                하의: 추천 값 받아오기 <br>
-            </p>
-        </div>
-    </body>
+    <div id="form_recommend">
+        <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
+        <br><br>
+        <p> <strong> 오늘의 추천 </strong> <br><br>
+            상의: 추천 값 받아오기 <br>
+            하의: 추천 값 받아오기 <br>
+        </p>
+    </div>
+</div>
+</body>
 </html>
