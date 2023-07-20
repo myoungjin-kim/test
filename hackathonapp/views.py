@@ -21,7 +21,7 @@ def main(request):
         vehicle = request.POST.get('vehicle')
         inout = request.POST.get('inout')
         ##??
-        gc_obj = GC.objects.create(date=date, top=top, bottom=bottom, vehicle=vehicle, inout=inout)
+        gc_obj = GC.objects.create(date=date, top=top, bottom=bottom, vehicle=vehicle, inout=inout)#데이터베이스 생성
 
         success = True
         return render(request, 'main.html', {'success':success})
