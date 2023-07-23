@@ -3,6 +3,25 @@
 
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field in form %}
+                        <!-- 필드 오류 -->
+                        {% if field.errors %}
+                            <div>
+                                <strong>{{ field.label }}</strong>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- 넌필드 오류 -->
+                    {% for error in form.non_field_errors %}
+                        <div>
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="mb-3">
                 <label for="username">사용자ID</label>
                 <input type="text" class="form-control" name="username" id="username"
@@ -15,6 +34,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">로그인</button>
+
             <p>
                 아직 회원이 아니신가요?
                 <a href='{% url "join" %}' > 회원가입  </a>

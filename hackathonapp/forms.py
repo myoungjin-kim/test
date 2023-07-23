@@ -3,6 +3,20 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+
+from django.contrib.auth.views import LoginView
+from django.http import JsonResponse
+
+
+# class CustomLoginView(LoginView):
+#     template_name = 'registration/login.html'
+#
+#     def form_invalid(self, form):
+#         '''로그인 오류에 대한 처리'''
+#         response = super().form_invalid(form)
+#         if self.request.is_ajax():
+#             return JsonResponse({"errors": form.errors}, status = 400)
+#         return render(self.request, self.template_name, {'form': form})
 class UserForm(UserCreationForm):
 
     class Meta:

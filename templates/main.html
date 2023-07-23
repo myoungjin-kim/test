@@ -23,6 +23,16 @@
     </script>
 </head>
 <body>
+<p>
+
+
+
+</p>
+{% if user.is_authenticated %}
+    {{ user.username }} 사용자
+{% endif %}
+
+
 <center>
     <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
     <hr>

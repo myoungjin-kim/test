@@ -25,4 +25,5 @@ urlpatterns = [
     path('signup/', hackathonapp.views.signup,name='join'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     path('main/', hackathonapp.views.main,name='main'),#로그인 되었을때 화면
+    path('recommend/', hackathonapp.views.recommend, name="recommend")
 ]

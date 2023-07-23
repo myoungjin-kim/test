@@ -10,6 +10,10 @@ class GC(models.Model):
     bottom = models.CharField(db_column='bottom', max_length=255)
     vehicle = models.IntegerField(db_column='vehicle')
     inout = models.IntegerField(db_column='inout')
+    @classmethod
+    def get_row_count(cls):
+        return cls.objects.count()
+
 
     class Meta:
-        db_table = 'get'#테이블 이름 get으로 설정해서 만들어줌
+            db_table = 'get'#테이블 이름 get으로 설정해서 만들어줌

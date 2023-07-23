@@ -10,5 +10,6 @@ c = conn.cursor()
 # c.execute("SELECT * FROM auth_user")
 c.execute("INSERT into getclothes values('긴팔','반바지','실내','자동차')")
 c.execute("SELECT * FROM auth_user")
-print(len(c.fetchall()))#테이블안에 있느 row 개수
+
+
 

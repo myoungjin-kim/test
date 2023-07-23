@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>옷 추천</title>
+</head>
+<body>
+<center>
+    <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
+    <hr>
+    <p> <a href="{% url 'home' %}"> 로그아웃 </a> </p>
+</center>
+<br><br>
+<center>
+
+    <div id="form_recommend">
+        {% if user.is_authenticated %}
+
+            {{ user.username }} 사용자
+        {% endif %}
+        <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
+        <br><br>
+        <p> <strong> 오늘의 추천 </strong> <br><br>
+            상의: 추천 값 받아오기 <br>
+            하의: 추천 값 받아오기 <br>
+        </p>
+    </div>
+</center>
+</body>
+</html>
