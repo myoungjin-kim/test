@@ -1,9 +1,9 @@
+import requests
 def forecast():
     from datetime import datetime,timedelta
     # 실제함수
     yesterday = (datetime.today() - timedelta(1)).strftime("%Y%m%d")#원하는 문자열형식으로
     # print forecast data
-    import requests
     import json
     # def forecast():
     url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst'
@@ -25,7 +25,7 @@ def forecast():
     response = requests.get(url, params=params)
 
     json_data = response.json()
-    RAIN=[]
+    RAIN=[]# 시간당 비가 오는 횟수 저장
     forecastdata=[]
     #예측날짜는오늘로 
     for item in json_data['response']['body']['items']['item']:
@@ -57,4 +57,4 @@ def forecast():
         forecastdata.append(0)
     #         print((item["fcstValue"]))<class 'str'>
     return forecastdata
-forecast()
+print(forecast())
