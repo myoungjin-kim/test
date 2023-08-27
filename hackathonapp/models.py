@@ -1,4 +1,4 @@
-from django.db import models
+
 
 # Create your models here.
 from django.db import models
@@ -10,6 +10,12 @@ class GC(models.Model):
     bottom = models.CharField(db_column='bottom', max_length=255)
     vehicle = models.IntegerField(db_column='vehicle')
     inout = models.IntegerField(db_column='inout')
+    high = models.FloatField(db_column='high',null=True, blank=True) # null blank 필수
+    low = models.FloatField(db_column='low',null=True, blank=True)
+    now = models.FloatField(db_column='now',null=True, blank=True)
+    hum = models.FloatField(db_column='hum',null=True, blank=True)
+    rain = models.FloatField(db_column='rain',null=True, blank=True)
+    prob = models.FloatField(db_column='prob',null=True, blank=True)
     @classmethod
     def get_row_count(cls):
         return cls.objects.count()

@@ -9,14 +9,17 @@
     <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
     <hr>
     <p> <a href="{% url 'home' %}"> 로그아웃 </a> </p>
+    <p> <a href="{% url 'list' %}"> 지금까지의 목록 </a> </p>
+    <p> <a href="{% url 'list_db' %}"> list로 출력 </a></p>
+    <p> <a href="{% url 're_home' %}"> 데이터 입력 </a></p>
 </center>
 <br><br>
 <center>
-
+{#사용자 이름 나오게하기#}
     <div id="form_recommend">
         {% if user.is_authenticated %}
 
-            {{ user.username }} 사용자
+            {{ user.username }} 사용자님 안녕하세요
         {% endif %}
         <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
         <br><br>
