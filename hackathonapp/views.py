@@ -104,8 +104,8 @@ def signup(request):
 def recommend(request):
     if request.method == 'POST':
         model = ClothingRecommendationModel()
-        model.retrain_model(...) # 학습을 시킬 데이터 입력
-        input_data = [...]  # 예측에 사용할 데이터 입력
+        model.retrain_model(...) # 학습을 시킬 데이터 입력(리스트 형태)
+        input_data = [...]  # 예측에 사용할 데이터 입력 (리스트 형태)
         tops, bottoms = model.get_clothing_recommendation(input_data)
         
         # 예측 결과를 템플릿에 전달합니다.
