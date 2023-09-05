@@ -1,6 +1,6 @@
 {#웹에 접속했을때 첫화면 #}
 
-<html>
+{% comment %} <html>
     <head>
         <title>옷 추천</title>
     </head>
@@ -13,4 +13,73 @@
             <p> <a href='{% url 'join'%}' >  회원가입  </a> </p>
         </center>
     </body>
+</html> {% endcomment %}
+
+
+{% comment %} 아래의 디자인에서 제대로 동작할지 확실하지 않아요 {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>옷 추천</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #333;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+
+        #nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #555;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s;
+        }
+
+        #nav a:hover {
+            border-bottom: 2px solid #333;
+        }
+
+        #content {
+            max-width: 600px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <h1>날씨 기반 의상 추천</h1>
+    </div>
+
+    <div id="content">
+        <hr>
+        <p> <a href='{% url "login" %}'>로그인</a> </p>
+        <p> <a href='{% url 'join'%}'>회원가입</a> </p>
+    </div>
+
+</body>
+
 </html>

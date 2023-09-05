@@ -1,4 +1,4 @@
-{% block content %}
+{% comment %} {% block content %}
     <div class="container my-3">
         <form method="post" action="{% url 'join' %}">
             {% csrf_token %}
@@ -25,4 +25,72 @@
             <button type="submit" class="btn btn-primary">sign up</button>
         </form>
     </div>
+{% endblock %} {% endcomment %}
+
+{% comment %} 아래의 디자인에서 제대로 동작할지 확실하지 않아요 {% endcomment %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F2F2F2;
+        margin: 0;
+        padding: 0;
+    }
+
+    #form-container {
+        max-width: 600px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    button {
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    button:hover {
+        background-color: #555;
+    }
+
+    label {
+        font-weight: bold;
+    }
+</style>
+
+<div id="form-container">
+    <form method="post" action="{% url 'join' %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="username">사용자 이름</label>
+            <input type="text" class="form-control" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password1">비밀번호</label>
+            <input type="password" class="form-control" name="password1" id="password1" value="{{ form.password1.value|default_if_none:'' }}">
+        </div>
+        <p>영어와 숫자를 섞은 8자리 이상의 비밀번호를 입력해주세요</p>
+        <div class="mb-3">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" class="form-control" name="password2" id="password2" value="{{ form.password2.value|default_if_none:'' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">sign up</button>
+    </form>
+</div>
 {% endblock %}

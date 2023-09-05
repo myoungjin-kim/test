@@ -1,0 +1,130 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { width: 50px; border: 1px solid black; text-align: center; padding: 10px; }
+    </style>
+</head>
+<body>
+{% if not rsGC %}
+    <p class="text-center">내용이 없습니다! </p>
+{% endif %}
+
+<div style="margin:20px 0;">
+    <table border="1" align="center" width="100%">
+        <tr>
+            <th align="center"> 날짜 </th>
+            <th align="center"> 상의 </th>
+            <th align="center"> 하의 </th>
+            <th align="center"> 교통수단 </th>
+            <th align="center"> 활동범위 </th>
+            <th align="center"> 수정 </th>
+        </tr>
+    </table>
+    {% for i in rsGC %}
+        <table border="1" align="center" width="100%">
+            <tr style="border-top:solid 1px #dddddd;">
+                <td align="center">{{ i.date }} </td>
+                <td align="center">{{ i.top }}</td>
+                <td align="center">{{ i.bottom }} </td>
+                <td align="center">{{ i.vehicle }} </td>
+                <td align="center">{{ i.inout }} </td>
+                <td align="center">
+                    <form method="post" action="/list_edit">
+                        {% csrf_token %}
+                        <input type="hidden" name="date" value="{{ i.date }}">
+                        <button type="submit"> 수정 </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+</div>
+</body>
+</html> {% endcomment %}
+
+{% comment %} 아래의 디자인에서 제대로 동작할지 확실하지 않아요 {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #333;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="header">
+    <h1>날씨 기반 의상 추천</h1>
+</div>
+
+{% if not rsGC %}
+    <p class="text-center">내용이 없습니다! </p>
+{% endif %}
+
+<div>
+    <table border="1">
+        <tr>
+            <th align="center"> 날짜 </th>
+            <th align="center"> 상의 </th>
+            <th align="center"> 하의 </th>
+            <th align="center"> 교통수단 </th>
+            <th align="center"> 활동범위 </th>
+            <th align="center"> 수정 </th>
+        </tr>
+    </table>
+    {% for i in rsGC %}
+        <table border="1">
+            <tr style="border-top:solid 1px #dddddd;">
+                <td align="center">{{ i.date }} </td>
+                <td align="center">{{ i.top }}</td>
+                <td align="center">{{ i.bottom }} </td>
+                <td align="center">{{ i.vehicle }} </td>
+                <td align="center">{{ i.inout }} </td>
+                <td align="center">
+                    <form method="post" action="/list_edit">
+                        {% csrf_token %}
+                        <input type="hidden" name="date" value="{{ i.date }}">
+                        <button type="submit"> 수정 </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+</div>
+
+</body>
+
+</html>

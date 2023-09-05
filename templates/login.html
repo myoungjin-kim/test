@@ -1,4 +1,4 @@
-{% block content %}
+{% comment %} {% block content %}
     <div class="container my-3">
 
         <form method="post" action="{% url 'login' %}">
@@ -41,4 +41,108 @@
             </p>
         </form>
     </div>
+{% endblock %} {% endcomment %}
+
+{% comment %} 아래의 디자인에서 제대로 동작할지 확실하지 않아요 {% endcomment %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F2F2F2;
+        margin: 0;
+        padding: 0;
+    }
+
+    #login-container {
+        max-width: 600px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    button {
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    button:hover {
+        background-color: #555;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .alert {
+        padding: 10px;
+        background-color: #f2f2f2;
+        color: #555;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+
+    a {
+        text-decoration: none;
+        color: #007BFF;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div id="login-container">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert">
+                {% for field in form %}
+                    <!-- 필드 오류 -->
+                    {% if field.errors %}
+                        <div>
+                            <strong>{{ field.label }}</strong>
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <!-- 넌필드 오류 -->
+                {% for error in form.non_field_errors %}
+                    <div>
+                        <strong>{{ error }}</strong>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="username">사용자ID</label>
+            <input type="text" class="form-control" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" name="password" id="password" value="{{ form.password.value|default_if_none:'' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">로그인</button>
+        <p>
+            아직 회원이 아니신가요?
+            <a href='{% url "join" %}'> 회원가입 </a>
+        </p>
+    </form>
+</div>
 {% endblock %}
+

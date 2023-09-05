@@ -8,9 +8,8 @@ from django.shortcuts import render, redirect
 from .forms import UserCreateForm, SingUpForm,UserForm
 # from django.contrib.auth import views as auth_views
 from .models import GC
-
-from .api import forecast # 날씨정보를 저장하기위한 기상청 api
-
+from forecast import forecast# 날씨정보를 저장하기위한 기상청 api
+from weather import crawl_weather_data
 from ai.useAI import ClothingRecommendationModel
 
 # Create your views here.
@@ -102,6 +101,25 @@ def signup(request):
         form = UserForm()
     return render(request, 'signup2.html', {'form': form})
 def recommend(request):
+    # 크롤링한 데이터 가져오기
+    temperature, humidity, personaltemp, third_element, UVdata3, water, weather_icon, tshirts5, tshirts10, tshirts8, tshirts2 = crawl_weather_data()
+
+    # 템플릿에 데이터 전달
+    context = {
+        'temperature': temperature,
+        'humidity': humidity,
+        'personaltemp': personaltemp,
+        'third_element': third_element,
+        'UVdata3':UVdata3,
+        'water':water,
+        'weather_icon':weather_icon,
+        'tshirts5':tshirts5,
+        'tshirts10':tshirts10,
+        'tshirts8':tshirts8,
+        'tshirts2':tshirts2,
+    }
+    
+    #ai 사용
     if request.method == 'POST':
         model = ClothingRecommendationModel()
         model.retrain_model(...) # 학습을 시킬 데이터 입력(리스트 형태)
@@ -112,7 +130,8 @@ def recommend(request):
         return render(request, 'recommend.html', {'tops': tops, 'bottoms': bottoms})
     else:
         return render(request, 'recommend.html')
-        
+    
+    
 def re_home(request):
     success = False
 
