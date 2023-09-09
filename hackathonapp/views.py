@@ -45,7 +45,7 @@ def main(request):
             now=api_data['TMP'],
             hum=api_data['REH'],
             rain=api_data['PTY'],
-            prob=api_data['pop'],
+            prob=api_data['pop'], # 날씨 데이터 받아오기
         )
 
         success = True
@@ -100,6 +100,16 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'signup2.html', {'form': form})
+
+def extract():
+    import sqlite3
+    conn = sqlite3.connect('../db.sqlite3')#파일 경로를 잘 지정하자 ....
+    # 커서 획득
+    c = conn.cursor()
+    # c.execute("SELECT * FROM auth_user")
+    data=(list(c.execute("SELECT * FROM get").fetchall()))
+    return data
+
 def recommend(request):
     # 크롤링한 데이터 가져오기
     temperature, humidity, personaltemp, third_element, UVdata3, water, weather_icon, tshirts5, tshirts10, tshirts8, tshirts2 = crawl_weather_data()
@@ -121,16 +131,27 @@ def recommend(request):
     
     #ai 사용
     if request.method == 'POST':
+        vehicle = request.POST.get('vehicle')
+        inout = request.POST.get('inout')
+        api_data = forecast()
+        
         model = ClothingRecommendationModel()
-        model.retrain_model(...) # 학습을 시킬 데이터 입력(리스트 형태)
-        input_data = [...]  # 예측에 사용할 데이터 입력 (리스트 형태)
+        
+        extracted_data = extract() #db 데이터 가져오기
+        training_data = [] #학습을 진행시킬 데이터
+        #학습에 불필요한 데이터 제거 (예: 날짜)
+        for item in extracted_data:
+            training_data.append(item[2:])
+
+        model.retrain_model(training_data) # 모델 학습
+        input_data = [vehicle, inout, api_data['TMX'], api_data['TMN'], api_data['TMP'], api_data['REH'], api_data['PTY'], api_data['pop']]  # 예측에 사용할 데이터 입력 (리스트 형태)
         tops, bottoms = model.get_clothing_recommendation(input_data)
         
         # 예측 결과를 템플릿에 전달합니다.
-        return render(request, 'recommend.html', {'tops': tops, 'bottoms': bottoms})
+        return render(request, 'recommend.html', {'tops': tops, 'bottoms': bottoms}, context)
     else:
-        return render(request, 'recommend.html')
-    
+        return render(request, 'recommend.html', context)
+ 
     
 def re_home(request):
     success = False

@@ -1,5 +1,5 @@
-from data_process import load_data
-from TabNet import train_model
+from ai.data_process import load_data
+from ai.TabNet import train_model
 import numpy as np
 EXPECTED_LENGTH = 8 # 모델 사용시 필요한 인풋 데이터의 길이
 

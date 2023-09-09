@@ -1,68 +1,3 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>옷 추천</title>
-</head>
-<body>
-<center>
-    <br> <b> <h1> 날씨 기반 의상 추천 </h1> </b>
-    <hr>
-    <p> <a href="{% url 'home' %}"> 로그아웃 </a> </p>
-    <p> <a href="{% url 'list' %}"> 지금까지의 목록 </a> </p>
-    <p> <a href="{% url 'list_db' %}"> list로 출력 </a></p>
-{#    리스트로 출력의 역할은 뭐지?#}
-    <p> <a href="{% url 're_home' %}"> 데이터 입력 </a></p>
-</center>
-<br><br>
-<center>
-{#사용자 이름 나오게하기#}
-    <div id="form_recommend">
-        {% if user.is_authenticated %}
-
-            {{ user.username }} 사용자님 안녕하세요
-        {% endif %}
-        <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
-        <div id="form_recommend">
-            <p> <h3> 오늘의 날씨 </h3>
-{#            {%load static%}#}
-{#            <p>#}
-{#                {% if third_element == "맑음" %}#}
-{#                    <img src="{% static 'images/clean.png' %}" alt="Image" width="100" height="100">#}
-{#                {% else %}#}
-{#                    <img src="{% static 'images/image2.jpg' %}" alt="Image 2">#}
-{#                {% endif %}#}
-{#            <p><i class="{{ weather_icon }}"></i></p>#}
-{#            {%load static%}#}
-            <p>오늘 날씨: <span id="third_element">{{ third_element }}</span></p>
-            <p>현재 온도: <span id="temperature">{{ temperature }}</span></p>
-            <p>체감 온도: <span id="personaltemp">{{ personaltemp }}</span></p>
-            <p>강수량   : <span id="water">{{ water }}</span></p>
-            <p>현재 습도: <span id="humidity">{{ humidity }}</span></p>
-            <p>자외선   : <span id="UVdata3">{{ UVdata3 }}</span></p>
-            </p>
-{#            <p> <strong> 오늘의 추천 구매 </strong>#}
-{#            <p>상의 : 반소매 티셔츠</p>#}
-{#            {%load static%}#}
-{#            <p>[1위]</p>#}
-{#            <p>상품명 : <span id="tshirts5">{{ tshirts5 }}</p>#}
-{#            <p><img src="{{ tshirts10 }}" alt="Image"></p>#}
-{#            <p>가격 : <span id="tshirts8">{{ tshirts8 }}</p>#}
-{#            <p>구매링크 : <span id="tshirts2">{{ tshirts2 }}</p>#}
-{#            </p>#}
-        </div>
-        <br><br>
-        <p> <strong> 오늘의 추천 </strong> <br><br>
-            상의: {{ tops }} <br>
-            하의: {{ bottoms }} <br>
-        </p>
-    </div>
-</center>
-</body>
-</html> {% endcomment %}
-
-{% comment %} 아래의 디자인에서 제대로 동작할지 확실하지 않아요 {% endcomment %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,15 +92,7 @@
         <p> <h3> 오늘의 날씨 </h3> api 값 받아오기 </p>
         <div id="form_recommend">
             <p> <h3> 오늘의 날씨 </h3>
-{#            {%load static%}#}
-{#            <p>#}
-{#                {% if third_element == "맑음" %}#}
-{#                    <img src="{% static 'images/clean.png' %}" alt="Image" width="100" height="100">#}
-{#                {% else %}#}
-{#                    <img src="{% static 'images/image2.jpg' %}" alt="Image 2">#}
-{#                {% endif %}#}
-{#            <p><i class="{{ weather_icon }}"></i></p>#}
-{#            {%load static%}#}
+
             <p>오늘 날씨: <span id="third_element">{{ third_element }}</span></p>
             <p>현재 온도: <span id="temperature">{{ temperature }}</span></p>
             <p>체감 온도: <span id="personaltemp">{{ personaltemp }}</span></p>
@@ -173,15 +100,24 @@
             <p>현재 습도: <span id="humidity">{{ humidity }}</span></p>
             <p>자외선   : <span id="UVdata3">{{ UVdata3 }}</span></p>
             </p>
-{#            <p> <strong> 오늘의 추천 구매 </strong>#}
-{#            <p>상의 : 반소매 티셔츠</p>#}
-{#            {%load static%}#}
-{#            <p>[1위]</p>#}
-{#            <p>상품명 : <span id="tshirts5">{{ tshirts5 }}</p>#}
-{#            <p><img src="{{ tshirts10 }}" alt="Image"></p>#}
-{#            <p>가격 : <span id="tshirts8">{{ tshirts8 }}</p>#}
-{#            <p>구매링크 : <span id="tshirts2">{{ tshirts2 }}</p>#}
-{#            </p>#}
+            <form method="POST">
+    {% csrf_token %}
+    <label>교통수단:</label>
+    <select name="vehicle" id="vehicle">
+        <option value="">교통수단 선택</option>
+        <option value="0"> 도보 </option>
+        <option value="1"> 버스/지하철 </option>
+        <option value="2"> 자가용 </option>
+    </select>
+
+    <label>활동범위:</label>
+    <select name="inout" id="inout">
+        <option value="">활동범위 선택</option>
+        <option value="0"> 실내 </option>
+        <option value="1"> 실외 </option>
+    </select>
+    <button type='submit'>제출</button>
+</form>
         </div>
         <br><br>
         <p> <strong> 오늘의 추천 </strong> <br><br>
